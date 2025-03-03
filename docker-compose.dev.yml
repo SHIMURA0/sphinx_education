@@ -1,0 +1,14 @@
+services:
+  web:
+    image: alibaba-cloud-linux-3-registry.cn-hangzhou.cr.aliyuncs.com/alinux3/node:20.16
+    # 使用root用户或与目录所有者匹配的UID (501)
+    user: "root"
+    working_dir: /app
+    volumes:
+      - /home/projects/education_website:/app:rw
+    ports:
+      - "8080:5173"
+    environment:
+      - NODE_ENV=development
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    restart: unless-stopped
